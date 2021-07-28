@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katzen-Memory</title>
+    <link href="design.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <script>
+
+
+
+        let umgedreht1 = ""
+        let umgedreht2 = ""
+
+        let bildid1 = ""
+        let bildid2 = ""
+
+        let bildnumber1 = ""
+        let bildnumber2 = ""
+
+        let anzahlaufgedeckterkarten = 0
+        let gleiche = 0
+
+
+
+
+
+
+        function get_mpos() {
+            let e = window.event;
+
+            let xpos = e.clientX;
+            let ypos = e.clientY;
+
+            alert(xpos + "  " + ypos);
+
+            return [xpos, ypos]
+        }
+
+        // Funktion für Start nach Auswahl des Spielmodus
+        /*function start() {
+            let soloButton = document.getElementById("solo");
+            if (soloButton.checked) {
+
+            } else if (twoPlayerButton.checked) {
+
+            } else {
+
+            }
+        }*/
+
+        function tauschebild(id, number, erlaubnis) {
+            console.log(number);
+
+            
+
+            let urls = [
+                "https://cdn.discordapp.com/attachments/866345252419928089/869222774412017684/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869222774412017684/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869223260166967306/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869223260166967306/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869223833146630174/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869223833146630174/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869224510568677396/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869224510568677396/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869234711808077834/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869234711808077834/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869235886091558933/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869235886091558933/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869236373499047956/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869236373499047956/unknown.png",
+
+                "https://cdn.discordapp.com/attachments/866345252419928089/869236780279414834/unknown.png",
+                "https://cdn.discordapp.com/attachments/866345252419928089/869236780279414834/unknown.png"
+            ];
+
+
+            let bildzugedeckt = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+
+            let bild = document.getElementById(id);
+
+            let bildaufgedeckt = urls[number]
+
+            if (bild.src == bildzugedeckt) {
+                if (anzahlaufgedeckterkarten < 2) {
+
+                    bild.src = bildaufgedeckt
+                    if (anzahlaufgedeckterkarten == 0) {
+                        umgedreht1 = urls[number]
+                        bildid1 = id
+                        bildnumber1 = number
+                    }
+                    if (anzahlaufgedeckterkarten == 1) {
+                        umgedreht2 = urls[number]
+                        bildid2 = id
+                        bildnumber2 = number
+                    }
+                    anzahlaufgedeckterkarten += 1
+                } if (anzahlaufgedeckterkarten == 2) {
+                    automatischumdrehen(bildid1, bildid2);
+                }
+            }
+            else {
+
+
+                if (erlaubnis) {
+                    bild.src = bildzugedeckt
+                    anzahlaufgedeckterkarten = 0
+                }
+            }
+        }
+
+        function automatischumdrehen(id1, id2) {
+            if (umgedreht1 == umgedreht2) {
+                anzahlaufgedeckterkarten = 0
+                gleiche++
+
+                let bild1 = document.getElementById(id1)
+                let bild2 = document.getElementById(id2)
+
+                let stapel1 = document.getElementById("stapel1")
+                stapel1.src = bild1.src
+
+
+                bild1.onclick = ""
+                bild2.onclick = ""
+
+                bild1.src = "https://cdn.discordapp.com/attachments/866345252419928089/869519736034164776/rot.PNG"
+                bild2.src = "https://cdn.discordapp.com/attachments/866345252419928089/869519736034164776/rot.PNG"
+
+
+
+            } else {
+                function wechslebild() {
+                    tauschebild(bildid1, bildnumber1, true);
+                    tauschebild(bildid2, bildnumber2, true)
+                    alert("Die Bilder sind ungleich. Wähle zwei neue Bilder aus!")
+                }
+                setTimeout(wechslebild, 50)
+
+            }
+        }
+
+
+        function fertig() {
+            alert("Neustart")
+            if (gleiche == 8) {
+                
+                for (let i = 0; i < 16; i++) {
+                    let id = 'bild';
+                    id += (i + 1).toString()
+                    tauschebild(id, i, true)
+                    let bild = document.getElementById(id)
+                    bild.onclick = "tauschebild('"+id+"',name, false)"
+                    bild.name = ""
+                    console.log(bild)
+                }
+
+                
+
+                  
+                anzahlaufgedeckterkarten=0
+                zufall()
+
+                gleiche = 0
+
+            }
+
+        }
+
+
+        function zufall() {
+
+            alert("Spielstart!")
+            let array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+            for (let i = 0; i < 16; i++) {
+
+                let found = false;
+                while (!found) {
+                    array[i] = Math.floor(Math.random() * 16);
+
+                    let gefunden = 0
+                    for (let j = 0; j < 16; j++) {
+                        if (array[j] == array[i]) {
+                            gefunden += 1;
+                        }
+                    }
+
+                    if (gefunden == 1) {
+                        found = true
+                    }
+
+                }
+
+
+                for (let i = 0; i < 16; i++) {
+                    let id = 'bild';
+                    id += (i + 1).toString()
+
+                    let bild = document.getElementById(id)
+                    bild.name = array[i]
+
+                }
+
+                //let bild=document.getElementById('bild1')
+
+                //bild.name=array[0]
+            }
+
+        }
+
+
+
+    </script>
+
+
+    <h1>Katzen-Memory</h1>
+    <br />
+
+    <h2>Anleitung</h2>
+
+    <p>
+        Das Ziel von Memory ist es, möglichst viele Bildpaare zu finden.<br /> Bei Memory können beliebig viele Spieler
+        gegeneinander spielen.<br /> Auf dem Spielfeld befinden sich umgedrehte
+        Spielkarten, welche auf der anderen Seite verschiedene Bilder haben.<br /> Pro Zug dürfen zwei Karten umgedreht
+        werden.
+        erneut zwei weitere Karten aufgedeckt werden,<br /> bevor der andere Spieler wieder am Zug ist.</p>
+
+    <!--<p>Bitte wähle einen Spielmodus:</p>
+
+
+
+
+    Auswahl des Spielmodus-->
+    <!--<input type="radio" name="spielmodus" id="solo" checked>
+    <label for="solo">Solo</label>
+    <input type="radio" name="spielmodus" id="twoPlayer">
+    <label for="twoPlayer">zu Zweit</label>
+    <input type="radio" name="spielmodus" id="vsKI">
+    <label for="vsKI">gegen den PC</label>-->
+
+    <br />
+
+    <button type="button" onclick="zufall();">
+        Los geht's!
+    </button>
+
+
+
+    <br />
+    <br />
+
+
+
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild1" onclick="tauschebild('bild1', name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild2" onclick="tauschebild('bild2', name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild3" onclick="tauschebild('bild3', name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild4" onclick="tauschebild('bild4' ,name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild5" onclick="tauschebild('bild5', name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild6" onclick="tauschebild('bild6', name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild7" onclick="tauschebild('bild7',name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild8" onclick="tauschebild('bild8',name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild9" onclick="tauschebild('bild9',name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild10" onclick="tauschebild('bild10',name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild11" onclick="tauschebild('bild11',name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild12" onclick="tauschebild('bild12',name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild13" onclick="tauschebild('bild13',name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild14" onclick="tauschebild('bild14',name, false)" name="" />
+
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild15" onclick="tauschebild('bild15',name, false)" name="" />
+    <img width=500
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png"
+        id="bild16" onclick="tauschebild('bild16',name, false)" name="" />
+
+
+    <br /> <br /> <br />
+    <img width=500 src="https://cdn.discordapp.com/attachments/866345252419928089/869485488636051456/unknown.png"
+        id="stapel1" class="stapel" />
+    <!--<img width=500 src="https://cdn.discordapp.com/attachments/866345252419928089/869485488636051456/unknown.png"
+        id="stapel2" class="stapel" />-->
+
+    <br /> <br />
+    <button type="button" onclick="fertig();">
+        Fertig
+    </button>
+
+
+
+
+</body>

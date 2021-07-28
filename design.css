@@ -1,0 +1,50 @@
+img {
+    width: 300px;
+    height: 300px;
+    border: rgb(215, 215, 215) 6px double;
+    border-top-style: double;
+    border-bottom-width: 10px;
+    /*border-radius: 100%;*/
+}
+
+body {
+    background-color: rgb(250, 198, 164);
+    text-align: center;
+    text-indent: 20px;
+    font-family: Arial;
+}
+
+body {
+    background-color: rgb(250, 198, 164);
+    color: black;
+    font-size: 20px;
+    font-style:normal;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight:normal;
+    text-align:center;
+}
+
+h1 {
+    font-size: 42px;
+    color:rgb(215, 215, 215);
+    text-align:center;
+    text-decoration:rgb(215, 215, 215) underline double;
+    font-variant:small-caps;
+}
+
+h2 {
+    font-size: 32px;
+    color:rgb(215, 215, 215);
+    text-align:center;
+    text-decoration:rgb(215, 215, 215) underline;
+}
+
+
+body {
+    background-color:rgb(247, 216, 181);
+}
+
+body {
+    background-color:rgb(114, 10, 10);
+    color:rgb(215, 215, 215);
+}
